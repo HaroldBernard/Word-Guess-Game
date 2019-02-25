@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body class="h-100">
+    <div class="container">
+        <div class="jumbotron display-1 text-center">Hang Man</div>
+        <div class="row">
+            <div class="col-m-6 display-3">Cereal Types</div>
+        </div>
+        <br>
+    </div>    
+    <div class="container h-75">
+        <div class="row h-50">
+            <div class="col-lg-6 border">
+                <img id="image" src="assets/images/hangman.png" alt="Hangman pic" style="height: 100%; width: 100%; max-height: 360px">
+            </div>
+            <div class="col-lg-6 border">
+                <p>Press Any Key Key To Get Started</p>
+                <span>Wins: <p id="winner">-</p></span>
+                <span>Losses: <p id="loser">_</p></span>
+                <span>Current Word: <p id="currentWord">-</p></span>
+                <span>Number Of Guesses Remaining: <p id="guessNum">-</p></span>
+                <span>Letters Already Guessed: <p id="letGuess">_</p></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+var cereal = ["cheerios", "wheaties", "trix", "chex", "luckycharms", "crispix", "ricekrispies", "life", "total", "honeycomb", "frootloops", "cocoapuffs" ]
+var wins = 0;
+var losses = 0;
+var lives = 10;
+var answerArray = [];
+var userGuessArray = []
+var split = []
+
+//create variables for linking to the html
+var guessNum = document.getElementById("guessNum");
+var letGuess = document.getElementById("letGuess");
+var currentWord = document.getElementById("currentWord");
+var winner = document.getElementById("winner");
+var loser = document.getElementById("loser");
+var images = document.getElementById("image")
+
+//computer randomly selects word from cereal array
+var computerGuess = cereal[Math.floor(Math.random() * cereal.length)];
+var split = computerGuess.split("")
+
+// inputs "_" on page as a placeholder for the current word's letters
+for (var i = 0; i < split.length; i++) {
+    answerArray[i] = "_";
+    }
+currentWord.textContent = answerArray;
+
+//sets up start of the game with 0 wins, 0 losses, 10 lives
+guessNum.textContent = lives;
+winner.textContent = wins;
+loser.textContent = losses;
+
+//create user key press event
+document.onkeyup = function(event) {
+    var userGuess = event.key.toLowerCase();
+
+//checks if letter pressed is within word. if it is then the letter will be displayed on page under current word
+    for (var j = 0 ; j < split.length; j++) {
+        if (split[j] === userGuess) {
+            answerArray[j] = split[j];
+            currentWord.textContent = answerArray.join(" ");
+        }   
+}
+
+//if user guessed letter is not within word answer, number of guesses remaining decreases by 1 
+//and incorrect letter is displayed on page as letters already guessed 
+if (split.indexOf(userGuess) === -1) {
+        userGuessArray.push(userGuess + "," + " "); 
+        letGuess.textContent = userGuessArray.join(" ");
+        lives--;
+        guessNum.textContent = lives;
+}
+
+
+ //increases losses by 1 when guesses left equal 0
+if (lives === 0){
+    images.src = "assets/images/gameover.jpg"
+    losses++;
+    loser.textContent = losses;
+    alert("Sorry you lost! better luck next time. Click ok to try again")
+}
+//when all letters of current word are guessed correctly, add 1 to wins and change image to cereal guessed
+else if (answerArray.indexOf("_") === -1) {
+    wins++
+    winner.textContent = wins
+    
+    if (computerGuess === cereal[0]) {
+        images.src = "assets/images/cheerios.jpg"    
+    }
+    else if (computerGuess === cereal[1]) {
+        images.src = "assets/images/wheaties.png"
+    }
+    else if (computerGuess === cereal[2]) {
+        images.src = "assets/images/trix.jpg"
+    }
+    else if (computerGuess === cereal[3]) {
+        images.src = "assets/images/chex.jpeg"
+    }
+    else if (computerGuess === cereal[4]) {
+        images.src = "assets/images/luckycharms.jpeg"
+    }
+    else if (computerGuess === cereal[5]) {
+        images.src = "assets/images/crispix.jpeg"
+    }
+    else if (computerGuess === cereal[6]) {
+        images.src = "assets/images/ricekrispies.jpeg"
+    }
+    else if (computerGuess === cereal[7]) {
+        images.src = "assets/images/life.jpeg"
+    }
+    else if (computerGuess === cereal[8]) {
+        images.src = "assets/images/total.jpg"
+    }
+    else if (computerGuess === cereal[9]) {
+        images.src = "assets/images/honeycomb.jpeg"
+    }
+    else if (computerGuess === cereal[10]) {
+        images.src = "assets/images/frootloops.jpg"
+    }
+    else if (computerGuess === cereal[11]) {
+        images.src = "assets/images/cocoapuffs.jpeg"
+    }
+    alert("Congratulations! You won! click ok to play again.")
+}
+
+//console logging
+console.log(userGuess)
+console.log(split)    
+
+}
+//displays letters already guessed to html
+
+
+
+
+
+
+
+</script>
+</html>
