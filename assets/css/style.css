@@ -1,0 +1,16 @@
+body {
+    background-image: url(../images/allcereal.jpeg)
+}
+div.col-lg-6 {
+    background: aliceblue
+}
+div.jumbotron{
+    background: aliceblue
+}
+div.row{
+    background: aliceblue
+}
+p, span {
+    font-weight: bold;
+    
+}
