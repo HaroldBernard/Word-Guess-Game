@@ -75,7 +75,10 @@ document.onkeyup = function (event) {
         images.src = "assets/images/gameover.jpg"
         losses++;
         loser.textContent = losses;
-        alert("Sorry you lost! better luck next time. Click ok to try again");
+        setTimeout(function() { 
+            alert("Sorry you lost! better luck next time. Click ok to try again"); 
+        }, 1000);
+       
     }
     //when all letters of current word are guessed correctly, add 1 to wins and change image to cereal guessed
     else if (answerArray.indexOf("_") === -1) {
@@ -121,7 +124,7 @@ document.onkeyup = function (event) {
         else if (computerGuess === cereal[11]) {
             images.src = "assets/images/cocoapuffs.jpeg"
         }
-        alert("Congratulations! You won! click ok to play again.");
+        setTimeout(function(){ alert("Congratulations! You won! click ok to play again."); }, 1000);
         console.log(pageReset)
     }
 
