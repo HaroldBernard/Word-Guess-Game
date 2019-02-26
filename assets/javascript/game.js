@@ -71,10 +71,10 @@ document.onkeyup = function (event) {
 
     //increases losses by 1 when guesses left equal 0
     if (lives <= 0) {
-        pageReset()
         images.src = "assets/images/gameover.jpg"
         losses++;
         loser.textContent = losses;
+        pageReset()
         setTimeout(function() { 
             alert("Sorry you lost! better luck next time. Click ok to try again"); 
         }, 1000);
@@ -86,7 +86,6 @@ document.onkeyup = function (event) {
         winner.textContent = wins;
         cerealMp3.play()
         cerealMp3.duration = 3;
-        pageReset()
 
         if (computerGuess === cereal[0]) {
             images.src = "assets/images/cheerios.jpg"
@@ -124,6 +123,7 @@ document.onkeyup = function (event) {
         else if (computerGuess === cereal[11]) {
             images.src = "assets/images/cocoapuffs.jpeg"
         }
+        pageReset()
         setTimeout(function(){ alert("Congratulations! You won! click ok to play again."); }, 1000);
         console.log(pageReset)
     }
